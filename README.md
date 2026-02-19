@@ -6,11 +6,11 @@ A full-stack application for managing project issues, built with FastAPI (Python
 
 ```
 project-issue-report/
-├── backend/           # FastAPI Python backend
+├── backend/           # FastAPI Python backend（uv）
 │   ├── app/          # Application code
 │   ├── tests/        # Backend tests
-│   ├── requirements.txt
 │   ├── pyproject.toml
+│   ├── uv.lock       # 依存関係ロックファイル
 │   └── README.md
 ├── frontend/         # React TypeScript frontend
 │   ├── src/         # Source code
@@ -24,7 +24,7 @@ project-issue-report/
 
 ### Prerequisites
 
-- Python 3.11 or higher
+- Python 3.14 以上（バックエンドは [uv](https://docs.astral.sh/uv/) 推奨）
 - Node.js 18 or higher
 - npm or yarn
 
@@ -32,10 +32,8 @@ project-issue-report/
 
 ```bash
 cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uv sync
+uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Backend will be available at http://localhost:8000
@@ -102,14 +100,14 @@ This project follows the **cc-sdd (Cursor-Centric Software Development)** method
 **Backend:**
 ```bash
 # Run tests
-pytest
+uv run pytest
 
 # Lint and format
-ruff check .
-ruff format .
+uv run ruff check .
+uv run ruff format .
 
 # Type checking
-mypy app/
+uv run mypy app/
 ```
 
 **Frontend:**
@@ -136,8 +134,8 @@ Once the backend is running, access the interactive API documentation:
 ### Backend Tests
 ```bash
 cd backend
-pytest
-pytest --cov=app --cov-report=html
+uv run pytest
+uv run pytest --cov=app --cov-report=html
 ```
 
 ### Frontend Tests
@@ -169,7 +167,7 @@ See [LICENSE](LICENSE) file for details.
 
 **Backend:**
 - FastAPI
-- Python 3.11+
+- Python 3.14+
 - Pydantic
 - Uvicorn
 - pytest

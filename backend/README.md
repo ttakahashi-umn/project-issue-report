@@ -5,32 +5,31 @@ FastAPI backend for the Project Issue Report application.
 ## Setup
 
 ### Prerequisites
-- Python 3.11 or higher
-- pip or uv package manager
+- Python 3.14 以上
+- [uv](https://docs.astral.sh/uv/)（推奨パッケージマネージャー）
 
-### Installation
+### Installation（uv）
 
-1. Create a virtual environment:
+1. 仮想環境の自動作成と依存関係のインストール:
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+uv sync
 ```
 
-2. Install dependencies:
+開発用依存関係（pytest, ruff など）も含める場合:
 ```bash
-pip install -r requirements.txt
+uv sync --extra dev
 ```
 
-For development dependencies:
+2. 開発サーバーの起動:
 ```bash
-pip install -e ".[dev]"
+uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ### Running the Application
 
 Start the development server:
 ```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 The API will be available at:
@@ -57,20 +56,20 @@ The API will be available at:
 
 Format and lint code:
 ```bash
-ruff check .
-ruff format .
+uv run ruff check .
+uv run ruff format .
 ```
 
 ### Testing
 
 Run tests:
 ```bash
-pytest
+uv run pytest
 ```
 
 Run tests with coverage:
 ```bash
-pytest --cov=app --cov-report=html
+uv run pytest --cov=app --cov-report=html
 ```
 
 ## cc-sdd Development Workflow
